@@ -2,20 +2,21 @@ package junit;
 
 public class OrderCalculatorV2 {
 
-    public double calculateTotal(double itemPrice, int itemCount, double taxRate, double discount) {
+    public double calculateTotal(double itemPrice, int itemCount, double taxRate, double discount, double discountThreshold) {
         double totalPrice = itemPrice * itemCount;
-        //tax
-        totalPrice *= (1 + taxRate);
 
         // discount
-        totalPrice -= discount;
+        if(totalPrice > discountThreshold) {
+            totalPrice -= discount;
+        }
 
+        totalPrice *= (1+taxRate);
         return totalPrice;
     }
 
     public static void main(String[] args) {
-        OrderCalculatorV2 calculator = new OrderCalculatorV2();
-        double total = calculator.calculateTotal(100,3,0.1,50);
+        OrderCalculatorV2 calculatorV2 = new OrderCalculatorV2();
+        double total = calculatorV2.calculateTotal(100,3,0.1,50, 200);
         System.out.println("Total price: " + total);
     }
 
